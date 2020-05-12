@@ -5,6 +5,7 @@ int main()
 {
   int in,ad,us;
   bool a;
+  map<char, map<char, map<char, char>>> mapa;
   ofstream esc;
   ifstream lee;
   system("cls");
@@ -20,16 +21,18 @@ int main()
       do{
         switch(ad){
        case 1:
-          cout<<"hola"<<endl;
+          inventario(mapa,"inventario.txt");
+          leer_inventario(mapa);
           goto volver;
         case 2:
           leer_user(lee);
           goto volver;
           //break;
-      }while(ad<3 and ad>0);
+      }while(ad<3 and ad>0){
         main();
         ad=0;
       break;
+        }
     case 2:
       system("cls");
       menu_user();

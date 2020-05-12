@@ -1,7 +1,7 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
-
+#include <map>
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -17,7 +17,8 @@ int menu_admin();
 int manu_user();
 void leer_user(ifstream &archivo);
 bool admin();
-
+void inventario(map<char, map<char, map<char, char>>> &, string n);
+void leer_inventario(map<char, map<char, map<char, char>>> &);
 
 int menu(){
   int x;
@@ -94,6 +95,39 @@ bool admin(){
   en>>contra;
   if(cc == cc_2 and contra == contra_2) return true;
   else return false;
+}
+void inventario(map<char, map<char, map<char, char>>> &mapa, string n){
+  char c1,c2,unid, cos;
+  ifstream archivo;
+  archivo.open(n, ios::in);
+  if(archivo.fail()){
+    cout<<"El archivo no se pudo abrir......."<<endl;
+    exit(1);
+  }
+  archivo>>c1;
+  while(!archivo.eof()){
+    archivo>>c2;
+    archivo>>unid;
+    archivo>>cos;
+    mapa[c1][c2][unid]=cos;
+    archivo>>c1;
+  }
+  archivo.close();
+}
+
+void leer_inventario(map<char, map<char, map<char, char>>> &mapa){
+
+  map<char, map<char, map<char, char>>>::iterator i;
+  map<char, map<char, char>>::iterator j;
+  map<char, char>::iterator k;
+  for(i=mapa.begin();i!= mapa.end();i++){
+    for(j=i->second.begin();j!=i->second.end();j++){
+      for(k=j->second.begin();k!=j->second.end();k++){
+        cout<<i->first<<endl;
+      }
+    }
+  }
+  system("pause");
 }
 
 
