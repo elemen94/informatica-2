@@ -5,14 +5,14 @@ int main()
 {
   int in,ad,us;
   bool a;
-  map<char, map<char, map<char, char>>> mapa;
+  map<char, map<char, int>> mapa;
   ofstream esc;
   ifstream lee;
   system("cls");
   in = menu();
   switch (in) {
     case 1:
-      system("cls");
+      //system("cls");
       a = admin();
       volver:
       if(a == true){ system("cls"); ad = menu_admin(); }
@@ -21,14 +21,17 @@ int main()
       do{
         switch(ad){
        case 1:
+          leer_inventario("inventario_2.txt");
           inventario(mapa,"inventario.txt");
-          leer_inventario(mapa);
+          //agregar_inventario(mapa);
           goto volver;
         case 2:
-          leer_user(lee);
+          agregar_inventario(mapa,"inventario_2.txt","inventario.txt");
           goto volver;
           //break;
-      }while(ad<3 and ad>0){
+        case 3:
+
+      }while(ad<4 and ad>0){
         main();
         ad=0;
       break;
