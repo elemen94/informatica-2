@@ -4,13 +4,13 @@
 int main()
 {
   int in,ad,us;
-  bool a;
+  bool a,x;
   map<char, map<char, int>> mapa;
   ofstream esc;
   ifstream lee;
   system("cls");
   in = menu();
-  switch (in) {
+  switch (in){
     case 1:
       //system("cls");
       a = admin();
@@ -40,21 +40,34 @@ int main()
         ad=0;
       break;
         }
+      
     case 2:
       system("cls");
-      user();
-      menu_user();
+      x = user();
+      if(x==true){ 
+        system("cls"); us = menu_user();
+      }
+      else{ cout<<"Try again........ :("<<endl;
+        system("pause");}
       do{
-        us = menu_user();
+        switch(us){
+        case 1:
+          break;
+        case 2:
+          break;
+      }
       }while(us<3 and us>0);
         main();
         us=0;
       break;
-  }
-while(in<3 and in>0);
+      }
+  
+  while(in<3 and in>0);
   system("cls");
   if(in == 3) cout<<"Gracias te esperamos pronto...... ;)"<<endl;
   else cout<<"Valor erroneo......"<<endl;
+  }
   return 0;
-}
-}
+  }
+      
+

@@ -23,7 +23,7 @@ void inventario(map<char, map<char, int>> &, string n);
 void leer_inventario(string n);
 void agregar_inventario(map<char, map<char, int>> &, string n);
 void agregar_user(string n);
-void user();
+int user();
 
 int menu(){
   int x;
@@ -189,12 +189,13 @@ void agregar_user(string n){
   en<<Cc<<" "<<contra<<" "<<saldo<<"\n";
   en.close();
 }
-void user(){
+int user(){
 
   system("cls");
   ifstream en;
   string cc,contra,saldo, cc1,contra1,line1,line2;
   int x,y,z;
+  bool u = false;
 
   en.open("user.txt", ios::in);
   ofstream temp("temp.txt", ios:: out);
@@ -208,12 +209,16 @@ void user(){
   cout<<"Enter you ID: ", cin>>cc1;
   cout<<"Enter you password: ", cin>>contra1;
 
-  if (en.is_open()){
+  if (en.fail()){
+    cout<<"Error el archivo no se pudo abrir"<<endl;
+    exit(1);
+  }
     en>>cc;
     while(!en.eof()){
       en>>contra;
       en>>saldo;
       if(cc == cc1 and contra == contra1){
+        u = true;
         system("cls");
         cout<<"Cedula usuario: "<<cc<<endl;
         stringstream geek(saldo), ss;
@@ -228,10 +233,9 @@ void user(){
     }
     en.close();system("pause");
     temp.close();
-  }else cout<<"Error el archivo no se pudo abrir"<<endl;
   remove("user.txt");
   rename("temp.txt", "sudo.txt");
-
+  return u;
 }
 
 
