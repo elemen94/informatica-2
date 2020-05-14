@@ -18,20 +18,20 @@ int menu_admin();
 int manu_user();
 void leer_user(string n);
 bool admin();
-void inventario(map<char, map<char, int>> &, string n);
-//void agregar_inventario(map<char, map<char, int>> &);
-void leer_inventario(string n);
-void agregar_inventario(map<char, map<char, int>> &, string n);
-void agregar_user(string n);
-int user();
+void inventario(map<char, map<int, map<string, map<int,int>>>> &);
+void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &);
+//void leer_inventario(string n);
+//void agregar_user(string n);
+//int user();
+void combos(map<char, map<string,int>> &);
 
 int menu(){
   int x;
   cout<<"<<----------Bienvenido---------->>"<<endl<<endl;
   cout<<"1. Ingresar como Administrador"<<endl;
   cout<<"2. Ingresar como Usuario"<<endl;
-  cout<<"3. salir"<<endl;
-  cin>>x;
+  cout<<"3. Salir"<<endl;
+  cout<<"Ingrese una opcion: ",cin>>x;
   return x;
 }
 
@@ -39,12 +39,12 @@ int menu_admin(){
   int x;
   cout<<"<<----------Bienvenido Administrador---------->>"<<endl<<endl;
   cout<<"1. Inventario"<<endl;
-  cout<<"2. Modificar Inventario"<<endl;
+  cout<<"2. Ingresar prductos al Inventario"<<endl;
   cout<<"3. Registro De Usuarios"<<endl;
   cout<<"4. Registrar Nuevo Usuarios"<<endl;
-  cout<<"5. Combos"<<endl;
+  cout<<"5. Crear Combos"<<endl;
   cout<<"6. salir "<<endl;
-  cin>>x;
+  cout<<"Ingrese una opcion: ",cin>>x;
   return x;
 }
 
@@ -54,7 +54,7 @@ int menu_user(){
   cout<<"1. Saldo"<<endl;
   cout<<"2. Compra de productos"<<endl;
   cout<<"3. salir "<<endl;
-  cin>>x;
+  cout<<"Ingrese una opcion: ",cin>>x;
   return x;
 }
 
@@ -89,7 +89,7 @@ void leer_user(string n){
 }
 bool admin(){
 
-  //system("cls");
+  cout<<endl;
   fstream en;
   string cc, contra, cc_2, contra_2;
 
@@ -104,140 +104,53 @@ bool admin(){
   en>>contra;
   if(cc == cc_2 and contra == contra_2) return true;
   else return false;
+  //system("pause");
 }
-void inventario(map<char, map<char, int>> &mapa, string n){
+void inventario(map<char, map<int, map<string, map<int,int>>>> &mapa){
+  system("cls");
+  char id;
+  char des[1000];
+  int precio, cantidad,unidades;
+  cout<<"<<----------Inventario del Cinema----------->>"<<endl;
+  cout<<"Ingrese informacion del producto"<<endl;
+  cout<<"ID: ",cin>>id;cin.sync();
+  cout<<"Cantidad: ",cin>>cantidad;cin.sync();
+  cout<<"descripcion del producto: ",cin.getline(des,1000,'\n');cin.sync();
+  cout<<"unidades: ",cin>>unidades;cin.sync();
+  cout<<"Valor total: ",cin>>precio;cin.sync();
+  mapa[id][unidades][des][cantidad]=precio;
 
-  char c1,c2;
-  int unid;
-  ifstream archivo;
-  archivo.open(n, ios::in);
-  if(archivo.fail()){
-    cout<<"El archivo no se pudo abrir......."<<endl;
-    exit(1);
-  }
-  archivo>>c1;
-  while(!archivo.eof()){
-    archivo>>c2;
-    archivo>>unid;
-    mapa[c1][c2]=unid;
-    archivo>>c1;
-  }
-  archivo.close();
 }
 
-/*void agregar_inventario(map<char, map<char, int>> &mapa){
+void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &mapa){
+  system("cls");
+  map<char, map<int, map<string, map<int,int>>>>:: iterator a;
+  map<int, map<string, map<int,int>>>::iterator b;
+  map<string, map<int,int>>::iterator c;
+  map<int,int>::iterator d;
 
-  map<char, map<char, int>>::iterator i;
-  map<char, int>::iterator j;
-
-  for(i=mapa.begin();i!= mapa.end();i++){
-    for(j=i->second.begin();j!=i->second.end();j++){
-        cout<<i->first<<" "<<j->first<<" "<<j->second<<endl;
+  for(a=mapa.begin();a!= mapa.end();a++){
+    for(b=a->second.begin();b!=a->second.end();b++){
+      for(c=b->second.begin();c!=b->second.end();c++){
+        for(d=c->second.begin();d!=c->second.end();d++){
+        cout<<"ID: "<<a->first<<" |unidades: "<<b->first<<" |descripcion: "<<c->first<<" |cantidad: "<<d->first<<" |precio:"<<d->second<<endl;
+        }
       }
     }
-  system("pause");
-}*/
-void leer_inventario(string n){
-  system("cls");
-  cout<<"----------Inventario de productos del cinemas----------"<<endl<<endl;
-  ifstream archivo;
-  string texto;
-  archivo.open(n, ios::in);
-  if(archivo.fail()){
-    cout<<"El archivo no se pudo abrir........"<<endl;
-    exit(1);
-  }
-  while(!archivo.eof()){
-    getline(archivo,texto);
-    cout<<texto<<endl;
-  }
-  archivo.close();
-  system("pause");
+  }system("pause");
 }
-void agregar_inventario(map<char, map<char, int>> &mapa, string n,string m){
-  system("cls");
-  map<char, map<char, int>> :: iterator i;
-  char ID,cantidad;
-  char des[100];
-  int valor;
-  ofstream archivo,archivo_2;
-  archivo.open(n, ios::out | ios::app);
+
+void crear_combo(map<char, map<string,int>> &combo){
+  
+  int costo;
+  char id, descripcion[1000];
+  cout<<"<<----------Planifica tu combo----------->>"<<endl;
   cout<<"Ingrese informacion del producto"<<endl;
-  cout<<"ID: ",cin>>ID;cin.sync();
-  cout<<"descripcion del producto: ",cin.getline(des,100,'\n');cin.sync();
-  cout<<"Cantidad: ",cin>>cantidad;cin.sync();
-  cout<<"Valor total: ",cin>>valor;cin.sync();
-  archivo<<ID<<" "<<cantidad<<" "<<valor<<"\n";
-  archivo_2.open(m, ios::out | ios::app);
-  archivo_2<<ID<<" "<<des<<" "<<cantidad<<" $"<<valor<<"\n";
-
-  archivo.close();
-  archivo_2.close();
-  mapa[ID][cantidad]=valor;
-  system("pause");
+  cout<<"ID: ",cin>>id;cin.sync();
+  cout<<"descripcion del producto: ",cin.getline(descripcion,1000,'\n');cin.sync();
+  cout<<"Valor total: ",cin>>costo;cin.sync();
+  combo[id][descripcion]=costo;
 }
-void agregar_user(string n){
-
-  system("cls");
-  ofstream en;
-  string Cc,contra,saldo;
-  en.open(n, ios::out | ios::app);
-  cout<<"Ingrese informacion del usuario"<<endl;
-  cout<<"Cedula: ",cin>>Cc;
-  cout<<"Contrase"<<char(164)<<"a: ",cin>>contra;
-  cout<<"Saldo: ",cin>>saldo;
-  en<<Cc<<" "<<contra<<" "<<saldo<<"\n";
-  en.close();
-}
-int user(){
-
-  system("cls");
-  ifstream en;
-  string cc,contra,saldo, cc1,contra1,line1,line2;
-  int x,y,z;
-  bool u = false;
-
-  en.open("user.txt", ios::in);
-  ofstream temp("temp.txt", ios:: out);
-
-  en>>line1;
-  en>>line2;
-  temp<<line1<<" "<<line2<<"\n";
-  x = line1.size()+line2.size()+2;
-  en.seekg(x, ios::beg);
-
-  cout<<"Enter you ID: ", cin>>cc1;
-  cout<<"Enter you password: ", cin>>contra1;
-
-  if (en.fail()){
-    cout<<"Error el archivo no se pudo abrir"<<endl;
-    exit(1);
-  }
-    en>>cc;
-    while(!en.eof()){
-      en>>contra;
-      en>>saldo;
-      if(cc == cc1 and contra == contra1){
-        u = true;
-        system("cls");
-        cout<<"Cedula usuario: "<<cc<<endl;
-        stringstream geek(saldo), ss;
-        geek>>y;
-        z = y;
-        ss<<z;
-        saldo = ss.str();
-        temp<<cc<<" "<<contra<<" "<<saldo<<"\n";
-        cout<<"saldo: "<<saldo<<endl<<endl;
-      }else temp<<cc<<" "<<contra<<" "<<saldo<<"\n";
-      en>>cc;
-    }
-    en.close();system("pause");
-    temp.close();
-  remove("user.txt");
-  rename("temp.txt", "sudo.txt");
-  return u;
-}
-
 
 
 #endif // FUNCIONES_H
