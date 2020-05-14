@@ -1,5 +1,6 @@
-1 7 84000
-2 7 18550
-3 3 37500
-4 4 46200
-5 3 216006 4 14000
+1 Vasos-plasticos-de-9oz-x9-Und 7 63 $84000
+2 Paquete-de-6-unidades-de-pan-para-perro 7 42 $18550
+3 Salchicha-para-perro-por-20-unidades 3 60 $37500
+4 1-paquete-x4-Unds-de-carne-para-hamburguesa 4 16 $46200
+5 Bolsas-de-Salsa-Roja-150ml 3 450 $21600
+6 Pan-de-hamburguesa 0 4 $14000

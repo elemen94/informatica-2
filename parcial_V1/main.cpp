@@ -4,7 +4,7 @@
 int main(){
   int in=0,ad=0;
   bool a;
-  map<char, map<int, map<string, map<int,int>>>> mapa;
+  map<string, map<string, map<string, map<string,string>>>> mapa;
   map<char, map<string,int>> combo;
   map<char, list<char>> comparacion;
 
@@ -36,6 +36,9 @@ int main(){
             goto volver;
           case 6:
             leer_user("user.txt");
+            goto volver;
+          case 7:
+            leer_inventario("inventario.txt", mapa);
             goto volver;
         }
       }while(ad<8 and ad>0);

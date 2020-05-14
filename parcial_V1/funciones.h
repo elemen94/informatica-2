@@ -13,15 +13,16 @@
 #include <list>
 
 using namespace std;
-//map<char, map<int, map<string, map<int,int>>>> mapa;
 
 int menu();
 int menu_admin();
 int manu_user();
 bool admin();
 void leer_user(string n);
-void inventario(map<char, map<int, map<string, map<int,int>>>> &);
-void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &);
+void quitar(string n);
+void leer_inventario(string n);
+void inventario(map<string, map<string, map<string, map<string,string>>>> &);
+void leer_mapa(map<string, map<string, map<string, map<string,string>>>> &);
 void crear_combo(map<char, map<string,int>> &, map<char, list<char>> &);
 void ver_combos(map<char, map<string,int>> &);
 void agregar_user(string n);
@@ -108,36 +109,34 @@ bool admin(){
   if(cc == cc_2 and contra == contra_2) return true;
   else return false;
 }
-void inventario(map<char, map<int, map<string, map<int,int>>>> &mapa){
+void inventario(map<string, map<string, map<string, map<string,string>>>> &mapa){
   system("cls");
-  char id;
+  string precio,cantidad,unidades;
+  string id;
   string des;
-  int precio,cantidad,unidades;
-  cin.sync();
   cout<<"<<----------Inventario del Cinema----------->>"<<endl<<endl;
-  cout<<"Ingrese informacion del producto"<<endl;
+  cout<<"Ingrese informacion del producto"<<endl;cin.sync();
   cout<<"ID: ",cin>>id;cin.sync();
-  cout<<"Cantidad: ",cin>>cantidad;cin.sync();
   cout<<"descripcion del producto: ";getline(cin,des);
+  cout<<"Cantidad: ",cin>>cantidad;cin.sync();
   cout<<"unidades: ",cin>>unidades;cin.sync();
   cout<<"Valor total: ",cin>>precio;cin.sync();
-  mapa[id][unidades][des][cantidad]=precio;
-  cin.sync();
+  mapa[id][des][cantidad][unidades]=precio;
 }
 
-void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &mapa){
+void leer_mapa(map<string, map<string, map<string, map<string,string>>>> &mapa){
   system("cls");
   cout<<"<<----------Inventario del Cinema----------->>"<<endl<<endl;
-  map<char, map<int, map<string, map<int,int>>>>:: iterator a;
-  map<int, map<string, map<int,int>>>::iterator b;
-  map<string, map<int,int>>::iterator c;
-  map<int,int>::iterator d;
+  map<string, map<string, map<string, map<string,string>>>>:: iterator a;
+  map<string, map<string, map<string,string>>>::iterator b;
+  map<string, map<string,string>>::iterator c;
+  map<string,string>::iterator d;
 
   for(a=mapa.begin();a!= mapa.end();a++){
     for(b=a->second.begin();b!=a->second.end();b++){
       for(c=b->second.begin();c!=b->second.end();c++){
         for(d=c->second.begin();d!=c->second.end();d++){
-        cout<<"ID: "<<a->first<<" |unidades: "<<b->first<<" |descripcion: "<<c->first<<" |cantidad: "<<d->first<<" |precio:"<<d->second<<endl;
+        cout<<"ID: "<<a->first<<" |Descripcion: "<<b->first<<" |Cantidades: "<<c->first<<" |Unidades: "<<d->first<<" |Precio:"<<d->second<<endl;
         }
       }
     }
@@ -157,6 +156,7 @@ void crear_combo(map<char, map<string,int>> &combo, map<char, list<char>> &compa
   cout<<"ID: ",cin>>id;
   combo[id][descripcion]=costo;cout<<endl;
   cout<<endl;system("cls");
+
   list<char> lista;
   cout<<"<<----------Ingredientes para el combo---------->>"<<endl;
   cout<<"Ingrese el numero de ingredientes: ",cin>>numin;cin.sync();
@@ -176,7 +176,7 @@ void ver_combos(map<char, map<string,int>> &combo){
   map<string, int>::iterator j;
   for(i=combo.begin();i!=combo.end();++i){
     for(j=i->second.begin();j!=i->second.end();++j){
-      cout<<i->first<<" "<<j->first<<" ...... "<<j->second<<endl;
+      cout<<i->first<<". "<<j->first<<" ...... "<<j->second<<endl;
     }
   }
   system("pause");
@@ -193,6 +193,46 @@ void agregar_user(string n){
   cout<<"Saldo: ",cin>>saldo;
   en<<Cc<<" "<<contra<<" "<<saldo<<"\n";
   en.close();
+}
+void leer_inventario(string n,map<string, map<string, map<string, map<string,string>>>> &mapa){
+
+  system("cls");
+  ifstream archivo;
+  string precio,cantidad,unidades;
+  string ID;
+  string des;
+  archivo.open(n, ios::in);
+
+  if(archivo.fail()){
+      cout<<"El archivo no se pudo abrir "<<endl;
+      exit(1);
+      }
+  archivo>>ID;
+  while(!archivo.eof()){
+    archivo>>des;
+    archivo>>cantidad;
+    archivo>>unidades;
+    archivo>>precio;
+    mapa[ID][des][cantidad][unidades]=precio;
+    cout<<"ID: "<<ID<<endl;
+    //cout<<"descripcion: "<<des<<" Len: "<<des.size()<<endl;
+    cout<<"descripcion: ",quitar(des);
+    cout<<"cantidad: "<<cantidad<<endl;
+    cout<<"unidades: "<<unidades<<endl;
+    cout<<"precio: "<<precio<<endl;
+    archivo>>ID;
+    cout<<endl;
+  }
+  archivo.close();system("pause");
+}
+void quitar(string n){
+
+  for(int i=0;i<n.size();++i){
+    if(n[i]=='-'){
+      n[i]=' ';
+    }
+  }
+  cout<<n<<endl;
 }
 
 #endif // FUNCIONES_H
