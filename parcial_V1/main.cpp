@@ -2,9 +2,12 @@
 
 
 int main(){
-  int in=0,ad=0,us=0;
-  bool a,x;
+  int in=0,ad=0;
+  bool a;
   map<char, map<int, map<string, map<int,int>>>> mapa;
+  map<char, map<string,int>> combo;
+  map<char, list<char>> comparacion;
+
   principio:
   system("cls");
   in = menu();
@@ -24,10 +27,10 @@ int main(){
             //agregar_inventario(mapa,"inventario.txt","inventario_2.txt");
             goto volver;
           case 3:
-            leer_user("user.txt");
+            crear_combo(combo, comparacion);
             goto volver;
           case 4:
-            //agregar_user("user.txt");
+            ver_combos(combo);
             goto volver;
           //case 5:
         }

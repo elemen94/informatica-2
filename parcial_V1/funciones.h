@@ -10,6 +10,7 @@
 #include <windows.h>
 #include <sstream>
 #include <string.h>
+#include <list>
 
 using namespace std;
 
@@ -20,10 +21,8 @@ void leer_user(string n);
 bool admin();
 void inventario(map<char, map<int, map<string, map<int,int>>>> &);
 void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &);
-//void leer_inventario(string n);
-//void agregar_user(string n);
-//int user();
-void combos(map<char, map<string,int>> &);
+void crear_combo(map<char, map<string,int>> &, map<char, list<char>> &);
+void ver_combos(map<char, map<string,int>> &);
 
 int menu(){
   int x;
@@ -40,9 +39,9 @@ int menu_admin(){
   cout<<"<<----------Bienvenido Administrador---------->>"<<endl<<endl;
   cout<<"1. Inventario"<<endl;
   cout<<"2. Ingresar prductos al Inventario"<<endl;
-  cout<<"3. Registro De Usuarios"<<endl;
-  cout<<"4. Registrar Nuevo Usuarios"<<endl;
-  cout<<"5. Crear Combos"<<endl;
+  cout<<"3. Crear Combos"<<endl;
+  cout<<"4. Ver Combos"<<endl;
+  cout<<"5. .........."<<endl;
   cout<<"6. salir "<<endl;
   cout<<"Ingrese una opcion: ",cin>>x;
   return x;
@@ -112,7 +111,7 @@ void inventario(map<char, map<int, map<string, map<int,int>>>> &mapa){
   char des[1000];
   int precio, cantidad,unidades;
   cout<<"<<----------Inventario del Cinema----------->>"<<endl;
-  cout<<"Ingrese informacion del producto"<<endl;
+  cout<<"Ingrese informacion del producto"<<endl;cin.sync();
   cout<<"ID: ",cin>>id;cin.sync();
   cout<<"Cantidad: ",cin>>cantidad;cin.sync();
   cout<<"descripcion del producto: ",cin.getline(des,1000,'\n');cin.sync();
@@ -124,6 +123,7 @@ void inventario(map<char, map<int, map<string, map<int,int>>>> &mapa){
 
 void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &mapa){
   system("cls");
+  cout<<"<<----------Inventario del Cinema----------->>"<<endl;
   map<char, map<int, map<string, map<int,int>>>>:: iterator a;
   map<int, map<string, map<int,int>>>::iterator b;
   map<string, map<int,int>>::iterator c;
@@ -140,11 +140,39 @@ void leer_mapa(map<char, map<int, map<string, map<int,int>>>> &mapa){
   }system("pause");
 }
 
-void crear_combo(map<char, map<string,int>> &combo){
-  int cantidad, costo, unidades;
-  char id;
+void crear_combo(map<char, map<string,int>> &combo, map<char, list<char>> &comparacion){
+  system("cls");
 
+  int costo,numin,cont=0;
+  char id, descripcion[100],ID,cant;
+  cout<<"<<----------Planifica tu combo----------->>"<<endl;
+  cout<<"Ingrese informacion del producto"<<endl;
+  cout<<"nombre para el combo: ",cin.getline(descripcion,100,'\n');
+  cout<<"Valor total: ",cin>>costo;
+  cout<<"ID: ",cin>>id;
+  combo[id][descripcion]=costo;cout<<endl;
+  cout<<endl;
+  list<char> lista;
+  cout<<"<<----------Ingredientes para el combo---------->>"<<endl;
+  cout<<"Ingrese el numero de ingredientes: ",cin>>numin;cin.sync();
+  while(cont<numin){
+    cout<<"Ingrese el ID del producto: ",cin>>ID;cin.sync();
+    cout<<"Ingrese cuanta del cantidad del produnto; ",cin>>cant;cin.sync();
+    lista.push_back(ID);
+    lista.push_back(cant);
+    cont++;
+  }
+  comparacion[id]=lista;
 }
+void ver_combos(map<char, map<string,int>> &combo){
 
+  map<char, map<string,int>>::iterator i;
+  map<string, int>::iterator j;
+  for(i=combo.begin();i!=combo.end();++i){
+    for(j=i->second.begin();j!=i->second.end();++j){
+      cout<<i->first<<" "<<j->first<<" "<<j->second<<endl;
+    }
+  }
+}
 
 #endif // FUNCIONES_H
