@@ -3,4 +3,6 @@
 3 Salchicha-para-perro-por-20-unidades 3 60 $37500
 4 1-paquete-x4-Unds-de-carne-para-hamburguesa 4 16 $46200
 5 Bolsas-de-Salsa-Roja-150ml 3 450 $21600
-6 Pan-de-hamburguesa 0 4 $14000
+6 crispetas-250mg 7 5 15300
+7 nachos-300mg-x12 5 60 29800
+8 sandiwchs-cubano-500mg 7 7 85600

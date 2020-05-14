@@ -27,6 +27,7 @@ void leer_mapa(map<string, map<string, map<string, map<string,string>>>> &);
 void crear_combo(map<char, map<string,int>> &, map<char, list<char>> &);
 void ver_combos(map<char, map<string,int>> &, string n);
 void agregar_user(string n);
+void comprar(map<char, map<string,int>> &);
 
 int menu(){
   int x;
@@ -294,11 +295,6 @@ void leer_inventario(string n ,map<string, map<string, map<string, map<string,st
     archivo>>unidades;
     archivo>>precio;
     mapa[ID][des][cantidad][unidades]=precio;
-    /*cout<<"ID: "<<ID<<endl;
-    cout<<"descripcion: ",quitar(des,'-',' ');
-    cout<<"cantidad: "<<cantidad<<endl;
-    cout<<"unidades: "<<unidades<<endl;
-    cout<<"precio: "<<precio<<endl;*/
     archivo>>ID;
   }
   archivo.close();
@@ -311,6 +307,9 @@ void quitar(string n ,char m, char l){
     }
   }
   cout<<n<<endl;
+}
+void comprar(){
+  
 }
 
 
