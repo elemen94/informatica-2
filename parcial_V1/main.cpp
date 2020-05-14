@@ -24,7 +24,6 @@ int main(){
             goto volver;
           case 2:
              inventario(mapa);
-            //agregar_inventario(mapa,"inventario.txt","inventario_2.txt");
             goto volver;
           case 3:
             crear_combo(combo, comparacion);
@@ -32,9 +31,14 @@ int main(){
           case 4:
             ver_combos(combo);
             goto volver;
-          //case 5:
+          case 5:
+            agregar_user("user.txt");
+            goto volver;
+          case 6:
+            leer_user("user.txt");
+            goto volver;
         }
-      }while(ad<6 and ad>0);
+      }while(ad<8 and ad>0);
         goto principio;
   }
   return 0;
